@@ -1,11 +1,27 @@
 <template>
   <div>
-    {{ members }}
+    <div v-for="member in members" :key="member.id">
+      <p>
+        {{ member.name }}
+      </p>
+      <p>
+        {{ member.age }}
+      </p>
+      <hr />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, onMounted } from "vue";
+import axios from "axios";
+
+interface Member {
+  id: number;
+  name: string;
+  lastname: string;
+  age: number;
+}
 
 export default {
   name: "Members",
@@ -16,14 +32,13 @@ export default {
     },
   },
   setup() {
-    const members = ref([]);
+    const members = ref<Member[]>([]);
 
     const fetchMembers = async () => {
-      const response = await fetch(
+      const { data } = await axios.get<Member[]>(
         `https://wizleap-api-for-ts-practice.vercel.app/`
       );
-      const json = await response.json();
-      members.value = json;
+      members.value = data;
     };
 
     onMounted(() => {
