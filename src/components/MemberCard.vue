@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { PropType } from "vue";
+import { PropType, defineComponent } from "vue";
 
 import { Member } from "types/Member";
 
-export default {
+export default defineComponent({
   name: "Members",
   props: {
     member: {
@@ -20,5 +20,5 @@ export default {
       required: true,
     },
   },
-};
+});
 </script>

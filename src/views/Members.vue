@@ -8,13 +8,13 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineComponent } from "vue";
 import axios from "axios";
 
 import { Member } from "types/Member";
 import MemberCard from "@/components/MemberCard.vue";
 
-export default {
+export default defineComponent({
   name: "Members",
   components: {
     MemberCard,
@@ -37,5 +37,5 @@ export default {
       members,
     };
   },
-};
+});
 </script>
