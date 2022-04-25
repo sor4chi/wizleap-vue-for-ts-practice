@@ -1,12 +1,7 @@
 <template>
   <div>
     <div v-for="member in members" :key="member.id">
-      <p>
-        {{ member.name }}
-      </p>
-      <p>
-        {{ member.age }}
-      </p>
+      <MemberCard :member="member" />
       <hr />
     </div>
   </div>
@@ -16,20 +11,13 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-interface Member {
-  id: number;
-  name: string;
-  lastname: string;
-  age: number;
-}
+import { Member } from "types/Member";
+import MemberCard from "@/components/MemberCard.vue";
 
 export default {
   name: "Members",
-  props: {
-    user: {
-      type: String,
-      required: true,
-    },
+  components: {
+    MemberCard,
   },
   setup() {
     const members = ref<Member[]>([]);
