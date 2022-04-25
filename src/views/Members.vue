@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-for="member in members" :key="member.id">
-      <MemberCard :member="member" />
+    <div v-for="member in filteredMembers" :key="member.id">
       <hr />
+      <MemberCard :member="member" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
 import { Member } from "types/Member";
@@ -21,6 +21,16 @@ export default {
   },
   setup() {
     const members = ref<Member[]>([]);
+    const findText = ref("");
+
+    const filteredMembers = computed(() => {
+      if (!findText.value) {
+        return members.value;
+      }
+      return members.value.filter((member) => {
+        return member.name.includes(findText.value);
+      });
+    });
 
     const fetchMembers = async () => {
       const { data } = await axios.get<Member[]>(
@@ -34,7 +44,7 @@ export default {
     });
 
     return {
-      members,
+      filteredMembers,
     };
   },
 };
