@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed, defineComponent } from "vue";
+import { ref, onMounted, computed, defineComponent, provide } from "vue";
 import axios from "axios";
 
 import { Member } from "types/Member";
@@ -25,6 +25,7 @@ export default defineComponent({
   setup() {
     const members = ref<Member[]>([]);
     const findText = ref("");
+    provide("findText", findText);
 
     const filteredMembers = computed(() => {
       if (!findText.value) {
